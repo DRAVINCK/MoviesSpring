@@ -39,10 +39,7 @@ public class CategoryController {
     @GetMapping("/{id}")
     public CategoryResponse getByCategoryId(@PathVariable Long id) {
         Optional<Category> optCategory = categoryService.findById(id);
-        if (optCategory.isPresent()) {
-            return CategoryMapper.toCategoryResponse(optCategory.get());
-        }
-        return null;
+        return optCategory.map(CategoryMapper::toCategoryResponse).orElse(null);
     }
 
     @DeleteMapping("/{id}")
