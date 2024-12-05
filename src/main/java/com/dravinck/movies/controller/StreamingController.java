@@ -2,30 +2,32 @@ package com.dravinck.movies.controller;
 
 import com.dravinck.movies.controller.request.CategoryRequest;
 import com.dravinck.movies.controller.response.CategoryResponse;
+import com.dravinck.movies.controller.response.StreamingResponse;
 import com.dravinck.movies.entity.Category;
+import com.dravinck.movies.entity.Streaming;
 import com.dravinck.movies.mapper.CategoryMapper;
+import com.dravinck.movies.mapper.StreamingMapper;
 import com.dravinck.movies.service.CategoryService;
+import com.dravinck.movies.service.StreamingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/movies/category")
+@RequestMapping("/movies/streaming")
 @RequiredArgsConstructor
-public class CategoryController {
+public class StreamingController {
+    private final StreamingService streamingService;
 
-
-    private final CategoryService categoryService;
 
 
     @GetMapping
-    public List<CategoryResponse> getAllCategories() {
-        List<Category> categories = categoryService.findAll();
-        return categories.stream() //steam é uma sequencia de elementos que suporta operações sequenciais e paralelas
-                .map(category -> CategoryMapper.toCategoryResponse(category)) // mapea cada objeto Category para um objeto CategoryResponse
+    public List<StreamingResponse> getAllStreaming() {
+        List<Streaming> streamings = streamingService.findAll();
+        return streamings.stream() //steam é uma sequencia de elementos que suporta operações sequenciais e paralelas
+                .map(category -> StreamingMapper.toStreamingResponse(streamings)) // mapea cada objeto Category para um objeto CategoryResponse
                 .toList();
     }
 
@@ -48,4 +50,3 @@ public class CategoryController {
     }
 
 }
-
