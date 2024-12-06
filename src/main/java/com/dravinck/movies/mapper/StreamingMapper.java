@@ -1,10 +1,7 @@
 package com.dravinck.movies.mapper;
 
-import com.dravinck.movies.controller.request.CategoryRequest;
 import com.dravinck.movies.controller.request.StreamingRequest;
-import com.dravinck.movies.controller.response.CategoryResponse;
 import com.dravinck.movies.controller.response.StreamingResponse;
-import com.dravinck.movies.entity.Category;
 import com.dravinck.movies.entity.Streaming;
 import lombok.experimental.UtilityClass;
 
