@@ -35,7 +35,7 @@ public class StreamingController {
     }
 
     @PostMapping
-    public ResponseEntity<StreamingResponse> saveCategory(@RequestBody StreamingRequest request) {
+    public ResponseEntity<StreamingResponse> saveStreaming(@RequestBody StreamingRequest request) {
         Streaming savedStreaming = streamingService.save(StreamingMapper.toStreaming(request));
         return ResponseEntity.status(HttpStatus.CREATED).body(StreamingMapper.toStreamingResponse(savedStreaming));
     }
@@ -48,7 +48,7 @@ public class StreamingController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteByCategoryId(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteByStreamingId(@PathVariable Long id) {
         streamingService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

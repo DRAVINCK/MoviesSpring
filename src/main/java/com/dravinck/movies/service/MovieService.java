@@ -1,7 +1,7 @@
 package com.dravinck.movies.service;
 
-import com.dravinck.movies.entity.Category;
-import com.dravinck.movies.repository.CategoryRepository;
+import com.dravinck.movies.entity.Movie;
+import com.dravinck.movies.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,24 +10,23 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CategoryService {
+public class MovieService {
 
-    private final CategoryRepository repository;
+    private final MovieRepository repository;
 
-    public List<Category> findAll(){
+    public List<Movie> findAll(){
         return repository.findAll();
     }
 
-    public Category save(Category category){
-        return repository.save(category);
+    public Movie save(Movie movie){
+        return repository.save(movie);
     }
 
-    public Optional<Category> findById(Long id){
+    public Optional<Movie> findById(Long id){
         return repository.findById(id);
     }
 
     public void delete (Long id){
         repository.deleteById(id);
     }
-
 }
