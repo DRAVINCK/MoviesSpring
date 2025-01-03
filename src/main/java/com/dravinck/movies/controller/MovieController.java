@@ -20,13 +20,13 @@ public class MovieController {
     private final MovieService movieService;
 
     @PostMapping
-    public ResponseEntity<MovieResponse> save(@RequestBody MovieRequest request){
+    public ResponseEntity<MovieResponse> saveMovie(@RequestBody MovieRequest request){
          Movie save = movieService.save(MovieMapper.toMovie(request));
             return ResponseEntity.ok(MovieMapper.toMovieResponse(save));
     }
 
     @GetMapping
-    public  ResponseEntity<List<MovieResponse>> findAll(){
+    public  ResponseEntity<List<MovieResponse>> findAllMovie(){
         return ResponseEntity.ok(movieService.findAll()
                 .stream()
                 .map(MovieMapper::toMovieResponse)//movie -> MovieMapper.toMovieResponse(movie)
@@ -34,14 +34,14 @@ public class MovieController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<MovieResponse> updateById(@PathVariable Long id){
+    public ResponseEntity<MovieResponse> updateMovieById(@PathVariable Long id){
         return movieService.findById(id)
                 .map(movie -> ResponseEntity.ok(MovieMapper.toMovieResponse(movie)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<MovieResponse> updateById(@PathVariable Long id, @RequestBody MovieRequest request){
+    public ResponseEntity<MovieResponse> updateMovieById(@PathVariable Long id, @RequestBody MovieRequest request){
         return movieService.update(id, MovieMapper.toMovie(request))
                 .map(movie -> ResponseEntity.ok(MovieMapper.toMovieResponse(movie)))
                 .orElse(ResponseEntity.notFound().build());
@@ -56,7 +56,7 @@ public class MovieController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> deleteByMovieId(@PathVariable Long id){
         Optional<Movie> optMovie = movieService.findById(id);
         if (optMovie.isPresent()){
             movieService.delete(id);
