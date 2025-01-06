@@ -12,12 +12,13 @@ public class UserMapper {
         return User.builder()
                 .name(request.name())
                 .email(request.email())
-                .email(request.password())
+                .password(request.password())
                 .build();
     }
     
     public static UserResponse toUserResponse(User user) {
         return UserResponse.builder()
+                .id(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())
                 .build();
