@@ -1,30 +1,46 @@
 package com.dravinck.movies.controller;
 
+import com.dravinck.movies.controller.request.LoginResquest;
 import com.dravinck.movies.controller.request.UserRequest;
 import com.dravinck.movies.controller.response.UserResponse;
 import com.dravinck.movies.entity.User;
 import com.dravinck.movies.mapper.UserMapper;
-import com.dravinck.movies.repository.UserRepository;
 import com.dravinck.movies.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/movies/auth")
 @RequiredArgsConstructor
 
 public class AuthController {
 
     private final UserService userService;
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(@RequestBody UserRequest request){
         User savadUser = userService.save(UserMapper.toUser(request));
         return ResponseEntity.status(HttpStatus.CREATED).body(UserMapper.toUserResponse(savadUser));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> Login(@RequestBody LoginResquest request){
+        UsernamePasswordAuthenticationToken userAndPass = new UsernamePasswordAuthenticationToken(request.email(), request.password());
+        Authentication authenticate = authenticationManager.authenticate(userAndPass);
+
+        User user = (User) authenticate.getPrincipal();
+
+
+
+        return ResponseEntity.status(HttpStatus.OK).body("Logado com sucesso");
     }
 }
