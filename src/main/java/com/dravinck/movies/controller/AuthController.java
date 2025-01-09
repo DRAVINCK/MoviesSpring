@@ -1,7 +1,9 @@
 package com.dravinck.movies.controller;
 
+import com.dravinck.movies.config.TokenService;
 import com.dravinck.movies.controller.request.LoginResquest;
 import com.dravinck.movies.controller.request.UserRequest;
+import com.dravinck.movies.controller.response.LoginResponse;
 import com.dravinck.movies.controller.response.UserResponse;
 import com.dravinck.movies.entity.User;
 import com.dravinck.movies.mapper.UserMapper;
@@ -25,6 +27,7 @@ public class AuthController {
 
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
 
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(@RequestBody UserRequest request){
@@ -33,14 +36,15 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> Login(@RequestBody LoginResquest request){
+    public ResponseEntity<LoginResponse> Login(@RequestBody LoginResquest request){
         UsernamePasswordAuthenticationToken userAndPass = new UsernamePasswordAuthenticationToken(request.email(), request.password());
         Authentication authenticate = authenticationManager.authenticate(userAndPass);
 
         User user = (User) authenticate.getPrincipal();
 
+        String token = tokenService.generateToken(user);
 
+        return ResponseEntity.ok(new LoginResponse(token));
 
-        return ResponseEntity.status(HttpStatus.OK).body("Logado com sucesso");
     }
 }
