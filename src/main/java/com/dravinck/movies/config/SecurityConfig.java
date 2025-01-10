@@ -13,25 +13,27 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig {
 
-    //private final SecurityFilter securityFilter;
+    private final SecurityFilter securityFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable()) // desabilita a proteção contra CSRF, em aplicações RESTful, onde o estado da sessão não é mantido no servidor. É MAIS CONFIAVEL
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize -> authorize
+                .authorizeHttpRequests(authorize -> authorize //usado para definir as regras de autorização para as requisições HTTP
+                        //requestMatchers Especifica quais tipos de requisições e endpoints podem ser acessados com ou sem autenticação.
                         .requestMatchers(HttpMethod.POST, "/movies/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/movies/auth/login").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().authenticated() //qualquer outra requisição precisa estar autenticada
                 )
-                //.addFilter()
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class )
                 .build();
     }
 
