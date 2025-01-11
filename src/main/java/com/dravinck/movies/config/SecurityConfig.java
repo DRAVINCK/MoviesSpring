@@ -1,6 +1,7 @@
 package com.dravinck.movies.config;
 
 
+import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +29,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // desabilita a proteção contra CSRF, em aplicações RESTful, onde o estado da sessão não é mantido no servidor. É MAIS CONFIAVEL
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize //usado para definir as regras de autorização para as requisições HTTP
+                        .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         //requestMatchers Especifica quais tipos de requisições e endpoints podem ser acessados com ou sem autenticação.
                         .requestMatchers(HttpMethod.POST, "/movies/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/movies/auth/login").permitAll()
