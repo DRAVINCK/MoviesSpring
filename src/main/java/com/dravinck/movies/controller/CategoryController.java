@@ -5,6 +5,7 @@ import com.dravinck.movies.controller.response.CategoryResponse;
 import com.dravinck.movies.entity.Category;
 import com.dravinck.movies.mapper.CategoryMapper;
 import com.dravinck.movies.service.CategoryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/movies/category")
 @RequiredArgsConstructor
+@Tag(name = "Category", description = "Endpoints de categorias")
 public class CategoryController {
 
 

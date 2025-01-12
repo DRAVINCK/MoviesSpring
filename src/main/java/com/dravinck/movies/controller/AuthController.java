@@ -9,6 +9,7 @@ import com.dravinck.movies.entity.User;
 import com.dravinck.movies.exceptions.UsernameOrPasswordinvalidException;
 import com.dravinck.movies.mapper.UserMapper;
 import com.dravinck.movies.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/movies/auth")
 @RequiredArgsConstructor
-
+@Tag(name = "Auth", description = "Endpoints de autenticação")
 public class AuthController {
 
     private final UserService userService;

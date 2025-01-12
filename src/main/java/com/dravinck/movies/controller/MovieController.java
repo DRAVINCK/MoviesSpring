@@ -5,6 +5,7 @@ import com.dravinck.movies.controller.response.MovieResponse;
 import com.dravinck.movies.entity.Movie;
 import com.dravinck.movies.mapper.MovieMapper;
 import com.dravinck.movies.service.MovieService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("movies/movie")
 @RequiredArgsConstructor
+@Tag(name = "Movie", description = "Endpoints de filmes")
 public class MovieController {
 
     private final MovieService movieService;

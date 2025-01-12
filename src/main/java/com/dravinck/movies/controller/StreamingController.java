@@ -5,19 +5,20 @@ import com.dravinck.movies.controller.response.StreamingResponse;
 import com.dravinck.movies.entity.Streaming;
 import com.dravinck.movies.mapper.StreamingMapper;
 import com.dravinck.movies.service.StreamingService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
 
 
 
 @RestController
 @RequestMapping("/movies/streaming")
 @RequiredArgsConstructor
+@Tag(name = "Streaming", description = "Endpoints de streamings")
 public class StreamingController {
 
 
