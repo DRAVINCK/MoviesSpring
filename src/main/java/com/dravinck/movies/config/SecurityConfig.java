@@ -33,6 +33,8 @@ public class SecurityConfig {
                         //requestMatchers Especifica quais tipos de requisições e endpoints podem ser acessados com ou sem autenticação.
                         .requestMatchers(HttpMethod.POST, "/movies/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/movies/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/api-docs/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/swagger/**").permitAll()
                         .anyRequest().authenticated() //qualquer outra requisição precisa estar autenticada
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class )
